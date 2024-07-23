@@ -1,0 +1,77 @@
+:root{
+    --mainOpacity: rgba(0, 0, 0, 0.55);
+}
+body {
+    background-color: #FFFDD0; /* Gris claro */
+    color: #333; /* Texto en un color oscuro para buen contraste */
+}
+
+.header {
+    background-image: linear-gradient( rgba(0, 0, 0, 0.7), rgba(0, 0, 0, 0.7) ), url("./Images/PublicImages/image-2.jpg");
+    opacity: var(--mainOpacity);
+    height: 25em !important;
+}
+/* custom-styles.css */
+
+/* Aplica los estilos a todas las clases asociadas al botón de AWS Amplify */
+.amplify-button,
+
+.amplify-button--primary,
+.amplify-button--fullwidth {
+  background-color: green !important; /* Cambia el color de fondo a verde */
+  color: white !important; /* Cambia el color del texto a blanco */
+  border: none !important; /* Elimina el borde */
+  font-size: 0.8rem; /* Ajusta el tamaño de la fuente */
+  padding: 5px 10px; /* Ajusta el relleno */
+}
+/* Estilo para el botón de pestaña activo */
+.amplify-tabs__item--active {
+    background-color: green !important; /* Cambia el color de fondo a verde */
+    color: white !important; /* Cambia el color del texto a blanco */
+    border: 1px solid green !important; /* Opcional: Agrega un borde verde */
+  }
+  
+.dark-overlay {
+    background-color: rgba(0, 0, 0, 0.35);
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+  }
+
+.main-color {
+background-color: #0e76a8 ;
+}
+
+.col-image-left {
+    background-image: url("./Images/PublicImages/image-4.jpg");
+    height: 25em !important;
+}
+
+.col-image-right {
+    background-image: url("./Images/PublicImages/image-1.jpg");
+    height: 25em !important;
+}
+
+.lost-image {
+    background-image: url("./Images/PublicImages/image-3.jpg");
+    height: 25em !important;
+    width: "720"
+}
+
+.homepage-carousel-title {
+    display: flex !important;
+    justify-content: center !important;
+    align-items: center !important;
+  }
+
+.book-div {
+    width: 480px;
+    height: 384px;
+}
+
+.inactiveLink {
+    pointer-events: none;
+    cursor: default;
+ }
