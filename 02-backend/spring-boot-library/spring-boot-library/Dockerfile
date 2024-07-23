@@ -1,27 +1,26 @@
-# Usa una imagen base con Java 21
-FROM openjdk:21-jdk AS build
+# Fase 1: Build
+FROM maven:3.8.6-openjdk-21 AS build
 
-# Configura el directorio de trabajo
+# Establecer el directorio de trabajo
 WORKDIR /app
 
-# Copia el archivo pom.xml y el código fuente
-COPY pom.xml ./
+# Copiar los archivos de proyecto
+COPY pom.xml .
 COPY src ./src
 
-# Ejecuta Maven para construir el proyecto
+# Construir el proyecto
 RUN mvn clean package -DskipTests
 
-# Usa una imagen base más ligera para ejecutar la aplicación
-FROM openjdk:21-jdk
+# Fase 2: Runtime
+FROM openjdk:21-jdk-slim
 
-# Configura el directorio de trabajo
+# Establecer el directorio de trabajo
 WORKDIR /app
 
-# Copia el archivo JAR generado desde la imagen de construcción
-COPY --from=build /app/target/spring-boot-library.jar ./app.jar
+# Copiar el JAR construido desde la fase de build
+COPY --from=build /app/target/spring-boot-library-0.0.1-SNAPSHOT.jar app.jar
 
-# Expon el puerto en el que la aplicación escuchará
+# Exponer el puerto en el que correrá la aplicación
 EXPOSE 8080
 
 # Comando para ejecutar la aplicación
-CMD ["java", "-jar", "app.jar"]
