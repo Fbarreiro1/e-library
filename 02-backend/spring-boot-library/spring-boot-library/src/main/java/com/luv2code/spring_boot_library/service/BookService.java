@@ -8,6 +8,7 @@ import com.luv2code.spring_boot_library.responsemodels.ShelfCurrentLoansResponse
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.time.LocalDate;
 import java.util.ArrayList;
@@ -53,10 +54,10 @@ public class BookService {
         return book.get();
     }
 
-       public List<Book> getAllBooks() {
+    public List<Book> getAllBooks() {
         return bookRepository.findAll();
     }
-}
+
     public boolean checkoutBookByUser(String userEmail, Long bookId) {
         Checkout validateCheckout = checkoutRepository.findByUserEmailAndBookId(userEmail, bookId);
         return validateCheckout != null;
