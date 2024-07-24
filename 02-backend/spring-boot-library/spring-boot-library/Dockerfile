@@ -1,27 +1,31 @@
-# Usa una imagen base con Java 21
-FROM openjdk:21-jdk AS build
+# Fase 1: Build
+FROM openjdk:21-jdk-slim AS build
 
-# Configura el directorio de trabajo
+# Instalar Maven
+RUN apt-get update && \
+    apt-get install -y wget unzip && \
+    wget https://dlcdn.apache.org/maven/maven-3/3.9.4/binaries/apache-maven-3.9.4-bin.zip && \
+    unzip apache-maven-3.9.4-bin.zip -d /opt && \
+    ln -s /opt/apache-maven-3.9.4/bin/mvn /usr/bin/mvn
+
+# Establecer el directorio de trabajo
 WORKDIR /app
 
-# Copia el archivo pom.xml y el código fuente
-COPY pom.xml ./
+# Copiar el archivo POM y las dependencias
+COPY pom.xml .
 COPY src ./src
 
-# Ejecuta Maven para construir el proyecto
+# Construir el proyecto
 RUN mvn clean package -DskipTests
 
-# Usa una imagen base más ligera para ejecutar la aplicación
-FROM openjdk:21-jdk
+# Fase 2: Runtime
+FROM openjdk:21-jdk-slim
 
-# Configura el directorio de trabajo
+# Establecer el directorio de trabajo
 WORKDIR /app
 
-# Copia el archivo JAR generado desde la imagen de construcción
-COPY --from=build /app/target/spring-boot-library.jar ./app.jar
+# Copiar el JAR desde la fase de build
+COPY --from=build /app/target/spring-boot-library-0.0.1-SNAPSHOT.jar .
 
-# Expon el puerto en el que la aplicación escuchará
-EXPOSE 8080
-
-# Comando para ejecutar la aplicación
-CMD ["java", "-jar", "app.jar"]
+# Comando para ejecutar el JAR
+ENTRYPOINT ["java", "-jar", "spring-boot-library-0.0.1-SNAPSHOT.jar"]
