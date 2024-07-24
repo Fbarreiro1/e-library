@@ -36,6 +36,11 @@ public class BookController {
         return loans;
     }
 
+     @GetMapping("/all")
+    public List<Book> getAllBooks() {
+        return bookService.getAllBooks();
+    }
+
     @PutMapping("/checkout")
     public Book checkoutBook(@RequestParam Long bookId) throws Exception {
         System.out.println("checkoutBook called");
