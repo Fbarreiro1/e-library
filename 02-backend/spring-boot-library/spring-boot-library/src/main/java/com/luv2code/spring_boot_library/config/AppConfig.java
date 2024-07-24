@@ -27,7 +27,11 @@ public AppConfig() {
     @Override
     public void addCorsMappings(CorsRegistry registry) {
         registry.addMapping("/**")
+<<<<<<< HEAD
                 .allowedOrigins("http://localhost:3000")
+=======
+                .allowedOrigins("https://e-library-production-beae.up.railway.app")
+>>>>>>> e2bb499adf9254edcb7f09a272aad25b29599a6f
                 .allowedMethods("GET", "POST", "PUT", "DELETE", "OPTIONS")
                 .allowedHeaders("*")
                 .allowCredentials(true);
